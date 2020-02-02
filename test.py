@@ -1,8 +1,9 @@
-from requests import get
-from requests import HTTPError
-from requests import exceptions
-import error
-import transmissionRPC
+#!/usr/bin/python3.6
 
-t = transmissionRPC.TransmissionRPC('http://localhost:9091/transmission/rpc')
-t.send_session_request()
+import os
+import json
+
+f = open("/home/brian/demofile2.txt", "w")
+f.write(json.dumps(dict(os.environ)))
+f.close()
+

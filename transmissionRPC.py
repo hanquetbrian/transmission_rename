@@ -37,9 +37,10 @@ class TransmissionRPC:
         self._update_session_id(get_session_id)
         return get_session_id.status_code
 
-    def send_request(self, method, arguments=None):
+    def _send_request(self, method, arguments=None):
         """
         Send a request to the server
+        To see the request available go to https://github.com/transmission/transmission/blob/2.9x/extras/rpc-spec.txt
         """
         if arguments is None:
             arguments = {}
@@ -50,6 +51,24 @@ class TransmissionRPC:
         if result.status_code == 409:
             self._update_session_id(result)
             result = requests.post(url=self._url, data=query, headers=self._headers)
-        elif result.status_code != 200:
-            raise error.HTTPError(result.url, result.status_code, result.content, result.headers)
+        if result.status_code != 200:
+            raise error.HTTPError(result.url, result.status_code, str(result.content), result.headers)
+
         return result
+
+    def get_torrent(self, ids=None, fields=None):
+        """
+        Get the list of the files which correspond to the given ids
+        For more info go to https://github.com/transmission/transmission/blob/46b3e6c8dae02531b1eb8907b51611fb9229b54a/extras/rpc-spec.txt#L142
+        """
+        if fields is None:
+            fields = ['id', 'name', 'downloadDir', 'files']
+        elif not isinstance(fields, list):
+            raise error.TransmissionError('Fields should be a list of objects, each of which'
+                                          'contains the key/value pairs matching the request\'s "fields" argument')
+        if ids is None:
+            query = {'fields': fields}
+        else:
+            query = {'fields': fields, 'ids': ids}
+        r = self._send_request('torrent-get', query)
+        return r.json()['arguments']['torrents']
