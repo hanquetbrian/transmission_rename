@@ -22,9 +22,12 @@ if __name__ == '__main__':
 
     media = mediaInfo
     # m = media.getinfo('Mr.Robot.S04E11.eXit.1080p.10bit.AMZN.WEB-DL.AAC5.1.HEVC-Vyndros.avi')
-    m = media.getinfo('Thor.Ragnarok.2017.4K.HDR.2160p.Engx265.mkv')
+    # m = media.getinfo('Thor.Ragnarok.2017.4K.HDR.2160p.eng.fr-x265.mkv')
     # m = media.getinfo('www.movcr.tv.-The.flash.2014.S05E22.720p.HDTV.x264AAC-GUN.mkv')
     # m = media.getinfo('Guardians.of the Galaxy Vol 2.2017.1080p.BluRay.x264-SPARKS[EtHD].mkv')
+    # m = media.getinfo('Mr.Robot.S04E01.401.Unauthorized.1080p.10bit.AMZN.WEB-DL.AAC5.1.HEVC-Vyndros.mkv')
+    # m = media.getinfo('Mind Field S02E01 The Greater Good  (1080p x265 NV 10bit Joy).mkv')
+    m = media.getinfo('The Handmaid\'s Tale (2017) - S03E06 - Household (1080p BluRay x265 Silence).mkv')
     if m:
         print(m)
 
